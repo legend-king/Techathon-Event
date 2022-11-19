@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Techathon"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".RestaurantAvtivity"
+            android:exported="true" />
+        <activity
+            android:name=".TrackOrderActivity"
+            android:exported="true" />
+        <activity
             android:name=".SetOrderActivity"
             android:exported="true" />
         <activity

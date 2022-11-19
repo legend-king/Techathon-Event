@@ -11,8 +11,11 @@
         <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
         <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/activity_main2.xml" value="0.23229166666666667" />
         <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/activity_register.xml" value="0.23229166666666667" />
+        <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/activity_restaurant_avtivity.xml" value="0.10572916666666667" />
         <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/activity_set_order.xml" value="0.4" />
+        <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/activity_track_order.xml" value="0.16" />
         <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/rc_recycler_view.xml" value="0.23229166666666667" />
+        <entry key="..\:/ProductDevelopment/Techathon/app/src/main/res/layout/rc_track_order.xml" value="0.10572916666666667" />
       </map>
     </option>
   </component>

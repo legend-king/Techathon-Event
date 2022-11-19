@@ -3,13 +3,21 @@ package com.example.techathon;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.example.techathon.Models.Model;
 import com.example.techathon.databinding.ActivityMain2Binding;
 import com.example.techathon.databinding.ActivitySetOrderBinding;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -19,12 +27,19 @@ public class SetOrderActivity extends AppCompatActivity {
     private Calendar calendar;
     private int hourIn, minuteIn;
     private String am_pmIn, am_pmOut;
+    DBHelper db;
+    int type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySetOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        db = new DBHelper(this);
+
+        Intent intent = getIntent();
+        type = intent.getIntExtra("type", 0);
 
         calendar = Calendar.getInstance();
 
@@ -102,7 +117,22 @@ public class SetOrderActivity extends AppCompatActivity {
         binding.set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                try{
+                    String wantedTime = hourIn+":"+minuteIn;
+                    Cursor cursor = db.getData();
+                    cursor.moveToNext();
+                    String email = cursor.getString(0);
+                    ApiClasses.PostSetOrder postSetOrder = new ApiClasses.PostSetOrder(type, email,wantedTime );
+                    postSetOrder.execute().get();
+                    JSONObject jsonObject = postSetOrder.getData();
+                    if (jsonObject.getInt("message")==1){
+                        Toast.makeText(getApplicationContext(), "Order Set Successfully", Toast.LENGTH_LONG).show();
+                        finish();
+
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 

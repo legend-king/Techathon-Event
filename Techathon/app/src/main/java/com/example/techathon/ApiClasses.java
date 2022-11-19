@@ -450,4 +450,182 @@ public class ApiClasses {
         }
     }
 
+
+    static class PostSetOrder extends AsyncTask<Void, Void, String> {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String resultJson = "";
+        int type;
+        String email, wantedTime;
+
+        PostSetOrder(int type, String email, String wantedTime){
+            this.type=type;
+            this.email=email;
+            this.wantedTime=wantedTime;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Log.e("error", url+"setOrder");
+                String site_url_json = url+"setOrder";
+                URL url = new URL(site_url_json);
+
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
+                urlConnection.connect();
+
+                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                wr.writeBytes("type=" + type + "&email="+email+"&wantedTime="+wantedTime);
+                wr.flush();
+                wr.close();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+
+                resultJson = buffer.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("error", e.toString());
+            }
+            return resultJson;
+        }
+
+
+        protected void onPostExecute(String strJson) {
+            super.onPostExecute(strJson);
+        }
+
+        public JSONObject getData() throws Exception{
+            Log.e("error","Result "+resultJson);
+            return new JSONObject(resultJson);
+        }
+    }
+
+
+    public static class PostTrackOrder extends AsyncTask<Void, Void, String> {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String resultJson = "";
+        String email;
+
+        public PostTrackOrder(String email){
+            this.email=email;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Log.e("error", url+"viewOrder");
+                String site_url_json = url+"viewOrder";
+                URL url = new URL(site_url_json);
+
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
+                urlConnection.connect();
+
+                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                wr.writeBytes( "email="+email);
+                wr.flush();
+                wr.close();
+
+
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+
+                resultJson = buffer.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("error", e.toString());
+            }
+            return resultJson;
+        }
+        protected void onPostExecute(String strJson) {
+            super.onPostExecute(strJson);
+        }
+
+        public JSONArray getData() throws Exception{
+            Log.e("error","Result "+resultJson);
+            return new JSONArray(resultJson);
+        }
+    }
+
+    public static class PostCancelOrder extends AsyncTask<Void, Void, String> {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String resultJson = "";
+        int id;
+
+        public PostCancelOrder(int id){
+            this.id=id;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Log.e("error", url+"cancelOrder");
+                String site_url_json = url+"cancelOrder";
+                URL url = new URL(site_url_json);
+
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
+                urlConnection.connect();
+
+                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                wr.writeBytes("id=" + id);
+                wr.flush();
+                wr.close();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+
+                resultJson = buffer.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("error", e.toString());
+            }
+            return resultJson;
+        }
+
+
+        protected void onPostExecute(String strJson) {
+            super.onPostExecute(strJson);
+        }
+
+        public JSONObject getData() throws Exception{
+            Log.e("error","Result "+resultJson);
+            return new JSONObject(resultJson);
+        }
+    }
+
 }

@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent1 = new Intent(MainActivity.this, MainActivity2.class);
                             startActivity(intent1);
                         }
+                        else if (jsonObject.getInt("userType")==2){
+                            Intent intent1 = new Intent(MainActivity.this, RestaurantAvtivity.class);
+                            startActivity(intent1);
+                        }
                     }
                     else{
                         binding.userET.setError("Invalid Credentials");
